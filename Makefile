@@ -1,5 +1,5 @@
-CC=gcc
-CFLAGS=-Wall -Wextra -Werror -Wswitch-enum -ggdb -fsanitize=address -std=c11
+CC=g++
+CFLAGS=-Wall -Wextra -Werror -Wswitch-enum -ggdb -fsanitize=address -std=c++17
 LIBS=
 ARGS=
 OUT=main.out
@@ -7,8 +7,8 @@ OUT=main.out
 SRC=src
 DIST=build
 
-CODE=$(addprefix $(SRC)/, main.c)
-OBJECTS=$(CODE:$(SRC)/%.c=$(DIST)/%.o)
+CODE=$(addprefix $(SRC)/, main.cpp)
+OBJECTS=$(CODE:$(SRC)/%.cpp=$(DIST)/%.o)
 DEPS=$(OBJECTS:%.o=%.d)
 
 .PHONY: all
@@ -22,7 +22,7 @@ $(DIST)/$(OUT): $(OBJECTS)
 
 -include $(DEPS)
 
-$(DIST)/%.o: $(SRC)/%.c
+$(DIST)/%.o: $(SRC)/%.cpp
 	mkdir -p $(DIST)
 	$(CC) $(CFLAGS) -MMD -c $< -o $@ $(LIBS)
 
